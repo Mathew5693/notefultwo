@@ -21,6 +21,9 @@ export default class NotePageNav extends React.Component {
     const { noteId } = this.props.match.params
     const note = findNote(notes, noteId) || {}
     const folder = findFolder(folders, note.folderId)
+    console.log('NotePageNav');
+
+
     return (
       <div className='NotePageNav'>
         <CircleButton
@@ -42,6 +45,9 @@ export default class NotePageNav extends React.Component {
         <button onClick={ () => this.props.history.push("/folders")}>
             Add Folder
         </button>
+
+
+        
       </div>
     )
   }

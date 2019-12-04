@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Route, Link} from 'react-router-dom';
+import {Route, Link, Switch, Redirect} from 'react-router-dom';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import NoteListNav from '../NoteListNav/NoteListNav';
 import NotePageNav from '../NotePageNav/NotePageNav';
@@ -31,6 +31,8 @@ class App extends Component {
                 return Promise.all([notesRes.json(), foldersRes.json()]);
             })
             .then(([notes, folders]) => {
+                console.log(notes);
+                console.log(folders);
                 this.setState({notes, folders});
             })
             .catch(error => {
@@ -46,7 +48,8 @@ class App extends Component {
 
     renderNavRoutes() {
         return (
-            <>
+            <Switch>
+            
                 {['/', '/folder/:folderId'].map(path => (
                     <Route
                         exact
@@ -55,19 +58,23 @@ class App extends Component {
                         component={NoteListNav}
                     />
                 ))}
-                <Route path="/note/:noteId" component={NotePageNav} />
-                <Route path="/add-folder" component={NotePageNav} />
-                <Route path="/add-note" component={NotePageNav} />
+                <Route exact path="/note/:noteId" component={NotePageNav} />
+                <Route exact path="/add-folder" component={NotePageNav} />
+                <Route exact path="/add-note" component={NotePageNav} />
                 {/*outside notes*/}
-                <Route path="/folders" component={AddFolder} />
-                
-            </>
+                <Route exact path="/folders" component={AddFolder} />
+                {/*<Route render={
+                    () => <h3>Not Found</h3>
+                }/>*/}
+                <Redirect to = "/" />
+            
+            </Switch>
         );
     }
 
     renderMainRoutes() {
         return (
-            <>
+            <Switch>
                 {['/', '/folder/:folderId'].map(path => (
                     <Route
                         exact
@@ -76,24 +83,25 @@ class App extends Component {
                         component={NoteListMain}
                     />
                 ))}
-                <Route path="/note/:noteId" component={NotePageMain} />
+                <Route exact path="/note/:noteId" component={NotePageMain} />
                 {/*inside notes*/}
-                <Route path="/notes" component={AddNote} />
-                
-                
-            </>
+                <Route exact path="/notes" component={AddNote} />
+               
+                </Switch>
+            
         );
     }
 
     addFolder = (folderName) => {
         this.setState({
-            folders : [...this.state.folders, {name : folderName}]
+            folders : [...this.state.folders, {name : folderName, id : folderName}]
         });
     }
 
-    addNote = (theNote) => {
+    addNote = (theNote, folderName) => {
+        console.log("newnote = ", theNote);
         this.setState({
-            notes : [...this.state.notes, theNote]
+            notes : [...this.state.notes, {folderId : folderName, name : theNote}]
         });
     }
 

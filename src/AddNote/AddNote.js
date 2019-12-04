@@ -7,34 +7,34 @@ export default class AddNote extends React.Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        const getNote =  event.target.name.value;
-        this.context.addNote(getNote);
+        const getNote =  event.target.note.value;
+        const theFolder = event.target.getFolder.value;
+        this.context.addNote(getNote, theFolder);
         
     }
 
     render(){
 
-        let isNotes = this.context.notes;
+        let selectFolder = this.context.folders;
+        let folderList = selectFolder.map((item, i) => {
+            return (
+                <option key={i} value={item.id}>{item.name}</option> 
+            )
+        })
+
+        
 
         return (
             <div>
-                {isNotes.map((note) => {
-                    return (
-                        <div>
-                            <h2>{note}</h2>
-                            
-                        </div>
-                    )
-                })}
 
                 <form onSubmit={this.handleSubmit}>
+                <select name="getFolder">{folderList}</select>
                     <label>
                         Folder Note:
                         <input type="text" name="note" />
                     </label>
                         <button type="Submit">Add Note</button>
-                </form>
-           
+                </form>          
            </div>
         )
     }

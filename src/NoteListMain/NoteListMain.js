@@ -19,8 +19,14 @@ export default class NoteListMain extends React.Component {
     const { folderId } = this.props.match.params
     const { notes=[] } = this.context
     const notesForFolder = getNotesForFolder(notes, folderId)
+    console.log('NoteListMain');
     return (
       <section className='NoteListMain'>
+        
+        <button onClick={ () => this.props.history.push("/notes")}>
+            Select Folder Name
+        </button>
+
         <ul>
           {notesForFolder.map(note =>
             <li key={note.id}>
