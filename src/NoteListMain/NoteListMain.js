@@ -23,9 +23,6 @@ export default class NoteListMain extends React.Component {
     return (
       <section className='NoteListMain'>
         
-        <button onClick={ () => this.props.history.push("/notes")}>
-            Select Folder Name
-        </button>
 
         <ul>
           {notesForFolder.map(note =>

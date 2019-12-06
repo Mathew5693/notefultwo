@@ -60,7 +60,7 @@ class App extends Component {
                 ))}
                 <Route exact path="/note/:noteId" component={NotePageNav} />
                 <Route exact path="/add-folder" component={NotePageNav} />
-                <Route exact path="/add-note" component={NotePageNav} />
+                <Route exact path="/add-note" component={AddNote} />
                 {/*outside notes*/}
                 <Route exact path="/folders" component={AddFolder} />
                 {/*<Route render={

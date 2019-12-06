@@ -42,11 +42,6 @@ export default class NotePageNav extends React.Component {
           </h3>
         )}
 
-        <button onClick={ () => this.props.history.push("/folders")}>
-            Add Folder
-        </button>
-
-
         
       </div>
     )
