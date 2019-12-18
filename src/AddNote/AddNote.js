@@ -1,6 +1,8 @@
 import React from 'react'
 import ApiContext from '../ApiContext'
 
+
+
 export default class AddNote extends React.Component {
 
     static contextType = ApiContext;
@@ -9,7 +11,16 @@ export default class AddNote extends React.Component {
         event.preventDefault();
         const getNote =  event.target.note.value;
         const theFolder = event.target.getFolder.value;
-        this.context.addNote(getNote, theFolder);
+        const noteName = event.target.noteName.value;
+        const theTime = new Date().toLocaleString();
+
+        if(noteName === ""){
+            alert("Note Name is Required!")
+        } else{
+            this.context.addNote(noteName, theFolder, getNote, theTime);
+            this.props.history.push('/');
+        }
+        
         
     }
 
@@ -30,7 +41,11 @@ export default class AddNote extends React.Component {
                 <form onSubmit={this.handleSubmit}>
                 <select name="getFolder">{folderList}</select>
                     <label>
-                        Folder Note:
+                        Name:
+                        <input type="text" name="noteName" />
+                    </label>
+                    <label>
+                        Note:
                         <input type="text" name="note" />
                     </label>
                         <button type="Submit">Add Note</button>

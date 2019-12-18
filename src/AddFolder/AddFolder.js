@@ -8,9 +8,16 @@ export default class AddFolder extends React.Component {
     handleSubmit = (event) => {
         event.preventDefault();
         const getName =  event.target.name.value;
-        this.context.addFolder(getName);
+        if(getName === ""){
+            alert("Folder Name is Required!")
+        } else{
+            this.context.addFolder(getName);
+            this.props.history.push('/');
+        }
+        
         
     }
+
 
     render(){
 

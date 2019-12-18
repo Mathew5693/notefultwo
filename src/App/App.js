@@ -98,10 +98,10 @@ class App extends Component {
         });
     }
 
-    addNote = (theNote, folderName) => {
+    addNote = (theNote, folderName, isNote, isDate) => {
         console.log("newnote = ", theNote);
         this.setState({
-            notes : [...this.state.notes, {folderId : folderName, name : theNote}]
+            notes : [...this.state.notes, {id: folderName, folderId : folderName, modified : isDate, name : theNote, content : isNote}]
         });
     }
 
