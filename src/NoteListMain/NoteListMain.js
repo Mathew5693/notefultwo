@@ -6,6 +6,7 @@ import CircleButton from '../CircleButton/CircleButton'
 import ApiContext from '../ApiContext'
 import { getNotesForFolder } from '../notes-helpers'
 import './NoteListMain.css'
+import ErrorHandler from '../ErrorHandler/ErrorHandler'
 
 export default class NoteListMain extends React.Component {
   static defaultProps = {
@@ -17,6 +18,17 @@ export default class NoteListMain extends React.Component {
 
   render() {
     const { folderId } = this.props.match.params
+    
+    
+    /*hides error handle prompt until a folder ID is being compared */
+    const sendToErrorHandle = () => {
+      if(folderId){
+        return <ErrorHandler folderID={folderId}/>
+      }
+    }
+    
+    
+    
     const { notes=[] } = this.context
     const notesForFolder = getNotesForFolder(notes, folderId)
     console.log('NoteListMain');
@@ -46,6 +58,7 @@ export default class NoteListMain extends React.Component {
             <br />
             Note
           </CircleButton>
+          {sendToErrorHandle()}
         </div>
       </section>
     )

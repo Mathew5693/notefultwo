@@ -7,6 +7,8 @@ export default class AddNote extends React.Component {
 
     static contextType = ApiContext;
 
+    
+    
     handleSubmit = (event) => {
         event.preventDefault();
         const getNote =  event.target.note.value;
@@ -33,11 +35,8 @@ export default class AddNote extends React.Component {
             )
         })
 
-        
-
         return (
             <div>
-
                 <form onSubmit={this.handleSubmit}>
                 <select name="getFolder">{folderList}</select>
                     <label>
@@ -49,7 +48,8 @@ export default class AddNote extends React.Component {
                         <input type="text" name="note" />
                     </label>
                         <button type="Submit">Add Note</button>
-                </form>          
+                </form>
+            
            </div>
         )
     }
